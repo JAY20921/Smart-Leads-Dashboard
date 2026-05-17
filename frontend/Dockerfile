@@ -1,18 +1,9 @@
-FROM node:20-alpine AS builder
+FROM naksh-frontend:latest AS production
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm config set registry http://registry.npmjs.org/ && npm install --fetch-retries=5
+COPY dist ./build
+COPY docker-server.mjs ./docker-server.mjs
 
-COPY . .
-RUN npm run build
+EXPOSE 3000
 
-# ─── Serve with nginx ─────────────────────────────────────────────────────────
-FROM nginx:alpine AS production
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "docker-server.mjs"]
