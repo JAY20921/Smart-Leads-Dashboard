@@ -1,0 +1,28 @@
+# Root
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Docker
+.dockerignore
